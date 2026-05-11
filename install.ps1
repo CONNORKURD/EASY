@@ -17,7 +17,8 @@ $files = @(
     "millennium.hhx64.dll",
     "python311.dll",
     "wsock32.dll",
-    "dwmapi.dll"
+    "dwmapi.dll",
+    "xinput1_4.dll"
 )
 
 # Download individual files (force replace if exists)
