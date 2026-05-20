@@ -1,13 +1,11 @@
 # Millennium Steam Installer
-# Automatically downloads and installs all files to Steam directory
-# Replaces existing files if already present
 
-if ($env:INSTALL_PATH -and (Test-Path $env:INSTALL_PATH)) {
-    $dest = $env:INSTALL_PATH
-} else {
-    $dest = "C:\Program Files (x86)\Steam"
+if (-not $env:INSTALL_PATH -or -not (Test-Path $env:INSTALL_PATH)) {
+    Write-Host "ERROR: No valid install location provided." -ForegroundColor Red
+    exit 1
 }
 
+$dest = $env:INSTALL_PATH
 $repo = "https://raw.githubusercontent.com/CONNORKURD/EASY/main"
 
 Write-Host "========================================" -ForegroundColor Cyan
@@ -17,7 +15,6 @@ Write-Host ""
 Write-Host "Install location: $dest" -ForegroundColor Cyan
 Write-Host ""
 
-# Individual files to download
 $files = @(
     "millennium-legacy.version.dll",
     "millennium.dll",
@@ -28,7 +25,6 @@ $files = @(
     "xinput1_4.dll"
 )
 
-# Download individual files (force replace if exists)
 foreach ($file in $files) {
     $url = "$repo/$file"
     $outPath = "$dest\$file"
@@ -42,7 +38,6 @@ foreach ($file in $files) {
     }
 }
 
-# Download and extract ext.zip (force replace existing folder)
 Write-Host ""
 Write-Host "Downloading ext.zip..." -ForegroundColor Yellow
 try {
@@ -57,7 +52,6 @@ try {
     Write-Host "Failed to download/extract ext.zip" -ForegroundColor Red
 }
 
-# Download and extract plugins.zip (force replace existing folder)
 Write-Host ""
 Write-Host "Downloading plugins.zip..." -ForegroundColor Yellow
 try {
