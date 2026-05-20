@@ -1,13 +1,20 @@
 # Millennium Steam Installer
-# Automatically downloads and installs all files to C:\Program Files (x86)\Steam
+# Automatically downloads and installs all files to Steam directory
 # Replaces existing files if already present
 
-$dest = "C:\Program Files (x86)\Steam"
+if ($env:INSTALL_PATH -and (Test-Path $env:INSTALL_PATH)) {
+    $dest = $env:INSTALL_PATH
+} else {
+    $dest = "C:\Program Files (x86)\Steam"
+}
+
 $repo = "https://raw.githubusercontent.com/CONNORKURD/EASY/main"
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host "   Millennium Installer for Steam" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Install location: $dest" -ForegroundColor Cyan
 Write-Host ""
 
 # Individual files to download
